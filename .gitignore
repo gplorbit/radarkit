@@ -1,0 +1,32 @@
+# ============================================
+# RadarKit .gitignore
+# ============================================
+
+# Konfigurasi sensitif
+radar_config.php
+
+# Signature files (data & cache)
+signatures.json
+signatures.json.enc
+.sig_cache.json
+.sig_cache.enc
+encrypt_signatures.php
+CLOUDFLARE_SETUP.md
+
+# Fresh WP Core — isi folder di-ignore, folder tetap ada (kosong saat clone)
+fresh_core/*
+!fresh_core/.gitkeep
+
+# File backup & temporary
+*.bak
+*.log
+*.sql
+*.zip
+
+# Development scripts (lokal saja)
+fix_symlink.sh
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini

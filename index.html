@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Dalam Pemeliharaan Keamanan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0c0c0e;
+            --accent-color: #ff8c00;
+            /* Safety Orange */
+            --text-color: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Ambient Background Glow */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 140, 0, 0.1) 0%, rgba(12, 12, 14, 0) 70%);
+            top: -10%;
+            right: -10%;
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 140, 0, 0.05) 0%, rgba(12, 12, 14, 0) 70%);
+            bottom: -15%;
+            left: -15%;
+            z-index: -1;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 140, 0, 0.1);
+            border: 1px solid var(--accent-color);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: var(--accent-color);
+            font-size: 32px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to bottom, #ffffff, #a1a1a1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #a1a1aa;
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 140, 0, 0.15);
+            color: var(--accent-color);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255, 140, 0, 0.3);
+            margin-bottom: 32px;
+            /* Ditambah agar tidak rapat */
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            margin-right: 8px;
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: #52525b;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="status-badge">
+            <span class="status-dot"></span>
+            System Shield Active
+        </div>
+
+        <div class="icon-box">
+            🛡️
+        </div>
+
+        <h1>Pemeliharaan Keamanan</h1>
+
+        <p>Kami sedang melakukan pemeliharaan rutin untuk meningkatkan keamanan sistem. Mohon maaf atas ketidaknyamanan
+            ini, kami akan segera kembali dalam waktu singkat.</p>
+
+        <div style="width: 100%; height: 1px; background: var(--glass-border); margin-bottom: 30px;"></div>
+
+        <footer>
+            &copy; 2026 Admin Panel &bull; Secure Systems
+        </footer>
+    </div>
+
+
+</body>
+
+</html>
