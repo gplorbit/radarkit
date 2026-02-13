@@ -3000,27 +3000,46 @@ $bantuan_url = $base . '/bantuan.php';
             // --- 🛡️ PDF DESIGN ---
 
             // 1. Header
-            doc.setFillColor(38, 50, 56); // Deep blue-gray
-            doc.rect(0, 0, 210, 40, 'F');
+            doc.setFillColor(38, 50, 56);
+            doc.rect(0, 0, 210, 25, 'F');
 
-            doc.setTextColor(255, 140, 0); // Accent orange
-            doc.setFontSize(24);
+            // Brand Title (Mimic Dashboard UI)
+            doc.setTextColor(255, 140, 0);
+            doc.setFontSize(20);
             doc.setFont("helvetica", "bold");
-            doc.text("RADAR SECURITY REPORT", 15, 20);
+            doc.text("RadarKit", 15, 12);
 
-            doc.setTextColor(200, 200, 200);
-            doc.setFontSize(10);
+            // Version
+            const brandWidth = doc.getTextWidth("RadarKit");
+            doc.setTextColor(255, 140, 0);
             doc.setFont("helvetica", "normal");
-            doc.text("v4.5 Enterprise Edition | Automated Security Analysis", 15, 28);
+            doc.setFontSize(14);
+            doc.text("v4.5", 15 + brandWidth + 3, 12);
+
+            // Tagline
+            doc.setTextColor(200, 200, 200);
+            doc.setFontSize(9);
+            doc.text("Automated Security Analysis", 15, 19);
+
+            // Meta Info (Shorten Path if too long)
+            const rawRoot = fileData.data?.root || 'N/A';
+            let displayRoot = rawRoot;
+            if (rawRoot.length > 40) {
+                const parts = rawRoot.split('/');
+                displayRoot = (rawRoot.includes('public_html'))
+                    ? '...' + rawRoot.substring(rawRoot.indexOf('public_html') - 1)
+                    : '.../' + parts.slice(-3).join('/');
+            }
 
             doc.setTextColor(255, 255, 255);
-            doc.text(`Generated: ${timestamp}`, 140, 20);
-            doc.text(`Root: ${fileData.data?.root || 'N/A'}`, 140, 28);
+            doc.setFontSize(8);
+            doc.text(`Generated: ${timestamp}`, 140, 11);
+            doc.text(`Root: ${displayRoot}`, 140, 18);
 
-            // 2. Executive Summary
+            // 2. Executive Summary (Adjusted Y)
             doc.setTextColor(0, 0, 0);
-            doc.setFontSize(16);
-            doc.text("Executive Summary", 15, 55);
+            doc.setFontSize(14);
+            doc.text("Executive Summary", 15, 40);
 
             const summaryData = [
                 ["Category", "Total Found", "Critical", "Suspicious"],
@@ -3029,7 +3048,7 @@ $bantuan_url = $base . '/bantuan.php';
             ];
 
             doc.autoTable({
-                startY: 60,
+                startY: 45, // Moved up to close gap
                 head: [summaryData[0]],
                 body: summaryData.slice(1),
                 theme: 'striped',
@@ -3038,7 +3057,7 @@ $bantuan_url = $base . '/bantuan.php';
 
             // 3. File Scan Details
             let finalY = doc.lastAutoTable.finalY + 15;
-            doc.setFontSize(16);
+            doc.setFontSize(14);
             doc.text("File Scan Details", 15, finalY);
 
             const fileRows = (fileData.data?.results || []).map(r => [
@@ -3047,6 +3066,11 @@ $bantuan_url = $base . '/bantuan.php';
                 r.score,
                 r.reason
             ]);
+
+            // v9.1: Informative empty state
+            if (fileRows.length === 0) {
+                fileRows.push(['-', 'CLEAN', '0', 'No malicious or suspicious files detected.']);
+            }
 
             doc.autoTable({
                 startY: finalY + 5,
@@ -3060,13 +3084,18 @@ $bantuan_url = $base . '/bantuan.php';
             // 4. Database Scan Details
             finalY = doc.lastAutoTable.finalY + 15;
             if (finalY > 250) { doc.addPage(); finalY = 20; }
-            doc.setFontSize(16);
+            doc.setFontSize(14);
             doc.text("Database Scan Details", 15, finalY);
 
             const dbRows = [];
             (dbData.data?.posts || []).forEach(p => dbRows.push(['Post', p.id, 'Spam Content', p.severity]));
             (dbData.data?.users || []).forEach(u => dbRows.push(['User', u.id, u.reason, u.severity]));
             (dbData.data?.options || []).forEach(o => dbRows.push(['Option', o.id, o.reason, o.severity]));
+
+            // v9.1: Informative empty state
+            if (dbRows.length === 0) {
+                dbRows.push(['-', '-', 'No database security issues found.', 'CLEAN']);
+            }
 
             doc.autoTable({
                 startY: finalY + 5,
