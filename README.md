@@ -283,7 +283,7 @@ Kontribusi sangat diterima! Silakan buat Pull Request atau buka Issue di reposit
 ## Developer Info
 
 Beberapa tools lainya dari kami:
-- <a href="https://cekhape.com"><b>CekHape</b></a> - Tools cek hape bekas untuk transparansi jual beli hp second.
+- <a href="https://cekhape.com"><b>CekHape</b></a> - Tools cek hp bekas untuk transparansi jual beli hp second.
 
 <p align="center">
   <b>RadarKit</b> — Dibuat untuk melindungi WordPress Indonesia 🇮🇩
